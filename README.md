@@ -8,7 +8,7 @@
 
 ---
 
-## 🛠️ 环境依赖与配置
+##  环境依赖与配置
 
 本项目代码已在 Python 3.9 环境下测试通过。为了避免 Windows 下多线程 DataLoader 导致的死锁问题，代码默认使用 `num_workers=0` 且针对 CPU 训练进行了尺寸优化（128x128）。
 
@@ -18,3 +18,33 @@
 # 推荐使用 conda 或 venv 创建虚拟环境
 pip install torch torchvision
 pip install wandb tqdm matplotlib numpy
+
+
+## 环境依赖与配置
+
+unet.py: U-Net 模型架构的核心实现文件（包含下采样、上采样与 Skip Connection）。
+
+train_ce.py: 仅使用标准 Cross-Entropy Loss 进行训练的执行脚本。
+
+train_dice.py: 仅使用手动实现的 Dice Loss 进行训练的执行脚本。
+
+train_combined.py: 使用 组合损失 (CE + Dice) 进行训练的执行脚本。
+
+data/: 运行代码后自动下载的数据集存放目录（首次运行自动生成）。
+
+
+## 运行指南
+由于数据集会自动下载（如果本地没有的话），你只需要按顺序直接运行以下三个训练脚本即可。每个脚本默认运行 15 个 epoch。
+
+1. 运行交叉熵损失实验：
+
+Bash
+python train_ce.py
+2. 运行纯 Dice Loss 实验：
+
+Bash
+python train_dice.py
+3. 运行组合损失实验：
+
+Bash
+python train_combined.py
